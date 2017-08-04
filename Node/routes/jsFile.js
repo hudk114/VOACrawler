@@ -7,9 +7,9 @@ var path = require('path');
 
 /* GET js files. */
 router.get('/*', function(req, res, next) {
-  // TODO get res
-  const p = path.join(__dirname, `../public/javascripts/${req.params[0]}`);
-  res.sendFile(p);
+    // TODO get res
+    const p = path.join(__dirname, `../public/javascripts/${req.params[0]}`);
+    res.sendFile(p);
 });
 
 module.exports = router;

@@ -7,11 +7,9 @@ const path = require('path');
 const fire = require('../fire');
 
 router.get('/', function(req, res, next) {
-  // do things here
-
-  fire();
-
-  res.send('123');
+    // TODO do things here
+    fire();
+    res.send('123');
 });
 
 module.exports = router;
