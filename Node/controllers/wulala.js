@@ -4,7 +4,7 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const fire = require('../fire');
+const fire = require('../business layer/crawlFiles');
 
 router.get('/', function(req, res, next) {
     // TODO do things here

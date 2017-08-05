@@ -2,30 +2,29 @@
  * Created by dekaihu on 2017/8/1.
  * this is the business layer. for it's too easy, so put in one file.
  */
-const http = require('http');
-const myFetch = require('./myFetch.js');
+const myFetch = require('../lib/myFetch.js');
+const CONFIG = require('../Config.json');
+const getMp3AndStore = require('./getMp3AndStore');
 
-const URI0 = 'http://www.51voa.com/VOA_Standard_English/';
-const URI1 = 'http://www.51voa.com/VOA_Special_English/';
+const URI0 = '/VOA_Standard_English/';
+// const URI1 = 'http://www.51voa.com/VOA_Special_English/';
 
 module.exports = function () {
-    myFetch(URI0, (d) => {
-        
+    myFetch(CONFIG.domain + URI0, (d) => {
         let arr = getListFromHtml(d);
-        // TODO
-        console.log(d);
+        arr.forEach((item) => getMp3AndStore(item));
     }, (e) => {
-        console.log(e.message);
+        console.error(`get file name error: ${ e.message }`);
     });
-}
+};
 
 var getListFromHtml = function (rawTxt) {
     // TODO 1\匹配当日时间 2\通过当日时间查找 3\匹配返回
     let arr = [];
     const dString = getDateString();
-    const str = `<a href="(.{0,100}\.html)" target="_blank">(.{0,100})\\\(${dString}\\\)</a>`;
+    const str = `<a href="(.{0,100}\\.html)" target="_blank">(.{0,100})\\(${dString}\\)</a>`;
     const pattern = new RegExp(str, 'g');
-    
+
     let match = pattern.exec(rawTxt);
     while (match) {
         arr.push({
@@ -36,9 +35,9 @@ var getListFromHtml = function (rawTxt) {
     }
     
     return arr;
-}
+};
 
 var getDateString = function () {
     const date = new Date();
     return `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
-}
+};

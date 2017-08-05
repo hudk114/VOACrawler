@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var lessMiddleware = require('less-middleware');
 
 var index = require('./routes/index');
-var wulala = require('./routes/wulala');
+var wulala = require('./controllers/wulala');
 const jsFile = require('./routes/jsFile');
 
 var app = express();
