@@ -5,6 +5,7 @@
 const http = require('http');
 
 const myFetch = function (uri, fn, fnErr) {
+    
     http.get(uri, (res) => {
         if(302 === res.statusCode) {
             // redirect

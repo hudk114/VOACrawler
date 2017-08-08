@@ -5,23 +5,28 @@
 const myFetch = require('../lib/myFetch.js');
 const CONFIG = require('../Config.json');
 const getMp3AndStore = require('./getMp3AndStore');
+const commonFuncs = require('../lib/commonFuncs');
+const createPath = require('../lib/createPath');
 
 const URI0 = '/VOA_Standard_English/';
-// const URI1 = 'http://www.51voa.com/VOA_Special_English/';
+const URI1 = '/VOA_Special_English/';
 
 module.exports = function () {
-    myFetch(CONFIG.domain + URI0, (d) => {
+    myFetch(CONFIG.domain + URI1, (d) => {
         let arr = getListFromHtml(d);
-        arr.forEach((item) => getMp3AndStore(item));
+        arr.forEach((item) => {
+            createPath(item.name, 1, (e) => {
+                getMp3AndStore(item);
+            });
+        });
     }, (e) => {
         console.error(`get file name error: ${ e.message }`);
     });
 };
 
 var getListFromHtml = function (rawTxt) {
-    // TODO 1\匹配当日时间 2\通过当日时间查找 3\匹配返回
     let arr = [];
-    const dString = getDateString();
+    const dString = commonFuncs.getDateString();
     const str = `<a href="(.{0,100}\\.html)" target="_blank">(.{0,100})\\(${dString}\\)</a>`;
     const pattern = new RegExp(str, 'g');
 
@@ -35,9 +40,4 @@ var getListFromHtml = function (rawTxt) {
     }
     
     return arr;
-};
-
-var getDateString = function () {
-    const date = new Date();
-    return `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
 };

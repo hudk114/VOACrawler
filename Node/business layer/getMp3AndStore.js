@@ -3,7 +3,6 @@
  */
 const myFetch = require('../lib/myFetch.js');
 const myFetchMp3 = require('../lib/myFetchMp3.js');
-const saveFile = require('../lib/saveFile.js');
 
 const CONFIG = require('../Config.json');
 
@@ -12,7 +11,7 @@ module.exports = function ({ uri, name }) {
         const mp3Uri = getMp3Uri(d);
         // const txt = getTxt(d);
         // TODO store txt; get mp3 file, store
-        myFetchMp3(mp3Uri, '', name, (d) => {
+        myFetchMp3(mp3Uri, name, (d) => {
             console.log(d);
         }, (e) => {
             console.error(`get mp3 file error: ${ e.message }`);
