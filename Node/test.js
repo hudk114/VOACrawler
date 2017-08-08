@@ -21,3 +21,7 @@ const dd = function dd() {
 };
 
 const ee = () => { dd();};
+
+const ff = function (...rest) {
+    console.log(rest);
+};

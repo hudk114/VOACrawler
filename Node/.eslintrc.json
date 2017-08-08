@@ -52,8 +52,15 @@
                 "allowArrowFunctions": true
             }
         ],
+        "no-new-func": 2,
         // 禁止在块内声明函数
-        "no-loop-func": 2
+        "no-loop-func": 2,
+        // 使用...而非arguments
+        "prefer-rest-params": 2,
+        // 函数申明空格
+        "space-before-function-paren": 2,
+        // 块空格
+        "space-before-blocks": 2
     },
     "parser": "babel-eslint"
 }
