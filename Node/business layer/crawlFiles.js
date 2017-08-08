@@ -8,23 +8,23 @@ const getMp3AndStore = require('./getMp3AndStore');
 const commonFuncs = require('../lib/commonFuncs');
 const createPath = require('../lib/createPath');
 
-const URI0 = '/VOA_Standard_English/';
-const URI1 = '/VOA_Special_English/';
-
-module.exports = function () {
-    myFetch(CONFIG.domain + URI1, (d) => {
-        let arr = getListFromHtml(d);
-        arr.forEach((item) => {
-            createPath(item.name, 1, (e) => {
-                getMp3AndStore(item);
+const crawlFiles = function () {
+    CONFIG.query.forEach((item) => {
+        myFetch(CONFIG.domain + item.uri, (d) => {
+            const arr = getListFromHtml(d, item.type);
+            arr.forEach((i) => {
+                createPath(i.name, item.type, () => {
+                    getMp3AndStore(i);
+                });
             });
+        }, (e) => {
+            console.error(`get file name error: ${ e.message }`);
         });
-    }, (e) => {
-        console.error(`get file name error: ${ e.message }`);
+
     });
 };
 
-var getListFromHtml = function (rawTxt) {
+const getListFromHtml = function (rawTxt, type) {
     let arr = [];
     const dString = commonFuncs.getDateString();
     const str = `<a href="(.{0,100}\\.html)" target="_blank">(.{0,100})\\(${dString}\\)</a>`;
@@ -35,9 +35,12 @@ var getListFromHtml = function (rawTxt) {
         arr.push({
             uri: match[1] && match[1].trim(),
             name: match[2] && match[2].trim(),
+            type: type,
         });
         match = pattern.exec(rawTxt);
     }
     
     return arr;
 };
+
+module.exports = crawlFiles;

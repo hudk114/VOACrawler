@@ -7,8 +7,8 @@ const fs = require('fs');
 const request = require('request');
 const commonFuncs = require('./commonFuncs');
 
-const myFetchMp3 = function (uri, name, fn, fnErr) {
-    const p = path.resolve(__dirname, `../files/${ commonFuncs.getDateString() }/${ name }`);
+const myFetchMp3 = function (uri, type, name, fn, fnErr) {
+    const p = path.resolve(__dirname, `../files/${ commonFuncs.getDateString() }/${ type }/${ name }`);
     var f = fs.createWriteStream(`${ p }/${ name }.mp3`);
     http.get(uri, (res) => {
         if(302 === res.statusCode) {

@@ -6,17 +6,16 @@ const myFetchMp3 = require('../lib/myFetchMp3.js');
 
 const CONFIG = require('../Config.json');
 
-module.exports = function ({ uri, name }) {
+module.exports = function ({ uri, type, name }) {
     myFetch(CONFIG.domain + uri, (d) => {
         const mp3Uri = getMp3Uri(d);
         // const txt = getTxt(d);
         // TODO store txt; get mp3 file, store
-        myFetchMp3(mp3Uri, name, (d) => {
+        myFetchMp3(mp3Uri, type, name, (d) => {
             console.log(d);
         }, (e) => {
             console.error(`get mp3 file error: ${ e.message }`);
         });
-        // console.log(mp3Uri);
     }, (e) => {
         console.error(`get mp3 path error: ${ e.message }`);
     })

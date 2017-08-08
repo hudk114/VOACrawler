@@ -17,6 +17,11 @@ var createPath = function (name, type, fn, fnErr) {
         fs.mkdirSync(p);
     }
     
+    p += `/${ type }`;
+    if(!fs.existsSync(p)) {
+        fs.mkdirSync(p);
+    }
+    
     p += `/${ name }`;
     if(!fs.existsSync(p)) {
         fs.mkdirSync(p);
