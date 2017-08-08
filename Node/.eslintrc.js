@@ -1,4 +1,4 @@
-{
+module.exports = {
     "env": {
         "browser": true,
         "commonjs": true,
@@ -24,6 +24,11 @@
         "prefer-const": 2,
         // 未使用变量
         "no-unused-vars": 1,
+        // 每个变量都要有const或let
+        "one-var": [
+            2,
+            "never"
+        ],
         // 使用{}而非Object()
         "no-new-object": 2,
         // 使用简写的对象方法定义与属性定义
@@ -57,10 +62,38 @@
         "no-loop-func": 2,
         // 使用...而非arguments
         "prefer-rest-params": 2,
-        // 函数申明空格
-        "space-before-function-paren": 2,
         // 块空格
-        "space-before-blocks": 2
+        "space-before-blocks": 2,
+        "keyword-spacing": 2,
+        "space-infix-ops": 2,
+        // 禁止对参数赋值
+        "no-param-reassign": 2,
+        // 避免空构造函数
+        "no-useless-constructor": 2,
+        // 避免重复定义
+        "no-dupe-class-members": 2,
+        // 使用.运算符读取对象属性
+        "dot-notation": 2,
+        "eqeqeq": 2,
+        // 禁止嵌套三元表达式
+        "no-nested-ternary": 2,
+        // if-else语句
+        "brace-style": 2,
+        // 注释空格
+        "spaced-comment": 2,
+        // 不要空行填充
+        "padded-blocks": [
+            2,
+            "never"
+        ],
+        "space-in-parens": 2,
+        "array-bracket-spacing": 2,
+        "object-curly-spacing": [
+            2,
+            "always"
+        ],
+        "id-length": 1,
+        "camelcase": 2
     },
     "parser": "babel-eslint"
-}
+};
