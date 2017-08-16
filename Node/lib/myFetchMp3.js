@@ -7,18 +7,30 @@ const fs = require('fs');
 const request = require('request');
 const commonFuncs = require('./commonFuncs');
 
+// name can't have /,\,:,*,?,",<,>,|
+var fixName = function fixName(name) {
+    const arr = name.split('').filter(item => {
+        if('/' === item || '\\' === item || ':' === item || '*' === item
+            || '?' === item || '"' === item || '<' === item || '>' === item
+            || '|' === item) {
+            return false;
+        }
+        return true;
+    });
+    return arr.join('');
+}
+
 const myFetchMp3 = function (uri, type, name, fn, fnErr) {
-    const p = path.resolve(__dirname, `../files/${ commonFuncs.getDateString() }/${ type }/${ name }`);
-    var f = fs.createWriteStream(`${ p }/${ name }.mp3`);
     http.get(uri, (res) => {
         if(302 === res.statusCode) {
             // redirect
-            request.get(res.headers.location).pipe(f);
-            // myFetchMp3(res.headers.location, fn, fnErr);
+            myFetchMp3(res.headers.location, type, name, fn, fnErr);
             return;
         }
-    })
-        .on('error', fnErr);
+        const p = path.resolve(__dirname, `../files/${ commonFuncs.getDateString() }/${ type }`); // /${ name }`);
+        const f = fs.createWriteStream(`${ p }/${ fixName(name) }.mp3`);
+        request.get(uri).pipe(f);
+    }).on('error', fnErr);
 };
 
 module.exports = myFetchMp3;

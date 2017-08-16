@@ -5,7 +5,6 @@
 const http = require('http');
 
 const myFetch = function (uri, fn, fnErr) {
-    
     http.get(uri, (res) => {
         if(302 === res.statusCode) {
             // redirect
@@ -18,8 +17,7 @@ const myFetch = function (uri, fn, fnErr) {
         res.on('end', () => {
             fn(rawData);
         });
-    })
-        .on('error', fnErr);
+    }).on('error', fnErr);
 };
 
 module.exports = myFetch;
