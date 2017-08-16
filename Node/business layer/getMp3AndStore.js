@@ -16,8 +16,8 @@ module.exports = function ({ uri, type, name }) {
         }, (e) => {
             console.error(`get mp3 file error: ${ e.message }`);
         });
-        
-        // mySaveFile(txt, type, name);
+
+        mySaveFile(txt, type, name);
     }, (e) => {
         console.error(`get mp3 path error: ${ e.message }`);
     })
@@ -37,7 +37,7 @@ var getTxt = function (rawTxt) {
         e = rawTxt.indexOf('</P>', s);
         strArr[strArr.length] = rawTxt.slice(s, e);
     }
-    
+
     return strArr;
 };
 
@@ -45,6 +45,6 @@ var getMp3Uri = function (rawTxt) {
     const str = `<a id="mp3" href="(.*\\.mp3)" title="鼠标右键点击下载">`;
     const pattern = new RegExp(str, 'g');
     const match = pattern.exec(rawTxt);
-    
+
     return match && match[1];
 };
