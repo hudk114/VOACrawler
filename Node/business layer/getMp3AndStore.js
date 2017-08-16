@@ -1,28 +1,44 @@
 /**
  * Created by dekaihu on 2017/8/5.
  */
-const myFetch = require('../lib/myFetch.js');
-const myFetchMp3 = require('../lib/myFetchMp3.js');
-
+const myFetch = require('../lib/myFetch');
+const myFetchMp3 = require('../lib/myFetchMp3');
+const mySaveFile = require('../lib/mySaveFile');
 const CONFIG = require('../Config.json');
 
 module.exports = function ({ uri, type, name }) {
     myFetch(CONFIG.domain + uri, (d) => {
         const mp3Uri = getMp3Uri(d);
-        // const txt = getTxt(d);
+        const txt = getTxt(d);
         // TODO store txt; get mp3 file, store
         myFetchMp3(mp3Uri, type, name, (d) => {
             console.log(d);
         }, (e) => {
             console.error(`get mp3 file error: ${ e.message }`);
         });
+        
+        // mySaveFile(txt, type, name);
     }, (e) => {
         console.error(`get mp3 path error: ${ e.message }`);
     })
 };
 
 var getTxt = function (rawTxt) {
-    // TODO
+    // too large for a string
+    let strArr = [];
+    let s = 0;
+    let e = 0;
+    while (s < rawTxt.length) {
+        s = rawTxt.indexOf('<P>', e);
+        if (-1 === s) {
+            break;
+        }
+        s += 3;
+        e = rawTxt.indexOf('</P>', s);
+        strArr[strArr.length] = rawTxt.slice(s, e);
+    }
+    
+    return strArr;
 };
 
 var getMp3Uri = function (rawTxt) {
