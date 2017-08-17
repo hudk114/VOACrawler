@@ -10,7 +10,7 @@ var getDateString = function () {
 // name can't have /,\,:,*,?,",<,>,|
 var fixName = function fixName(name) {
     const arr = name.split('').filter(item => {
-        if('/' === item || '\\' === item || ':' === item || '*' === item
+        if ('/' === item || '\\' === item || ':' === item || '*' === item
             || '?' === item || '"' === item || '<' === item || '>' === item
             || '|' === item) {
             return false;

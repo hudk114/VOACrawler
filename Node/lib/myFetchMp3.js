@@ -9,7 +9,7 @@ const commonFuncs = require('./commonFuncs');
 
 const myFetchMp3 = function (uri, type, name, fn, fnErr) {
     http.get(uri, (res) => {
-        if(302 === res.statusCode) {
+        if (302 === res.statusCode) {
             // redirect
             myFetchMp3(res.headers.location, type, name, fn, fnErr);
             return;
