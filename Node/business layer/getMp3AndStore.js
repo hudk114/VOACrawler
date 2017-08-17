@@ -9,7 +9,7 @@ const CONFIG = require('../Config.json');
 module.exports = function ({ uri, type, name }) {
     myFetch(CONFIG.domain + uri, (d) => {
         const mp3Uri = getMp3Uri(d);
-        const txt = getTxt(d);
+        const txtArr = getTxt(d);
         // TODO store txt; get mp3 file, store
         myFetchMp3(mp3Uri, type, name, (d) => {
             console.log(d);
@@ -17,7 +17,7 @@ module.exports = function ({ uri, type, name }) {
             console.error(`get mp3 file error: ${ e.message }`);
         });
         
-        // mySaveFile(txt, type, name);
+        mySaveFile(txtArr, type, name);
     }, (e) => {
         console.error(`get mp3 path error: ${ e.message }`);
     })
@@ -37,7 +37,6 @@ var getTxt = function (rawTxt) {
         e = rawTxt.indexOf('</P>', s);
         strArr[strArr.length] = rawTxt.slice(s, e);
     }
-    
     return strArr;
 };
 
