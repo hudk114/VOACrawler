@@ -16,13 +16,7 @@ module.exports = function ({ uri, type, name }) {
         }, (e) => {
             console.error(`get mp3 file error: ${ e.message }`);
         });
-<<<<<<< HEAD
-        
         mySaveFile(txtArr, type, name);
-=======
-
-        mySaveFile(txt, type, name);
->>>>>>> 62bb49ab4466231311c0418e41093a20386bd24f
     }, (e) => {
         console.error(`get mp3 path error: ${ e.message }`);
     })
@@ -42,10 +36,7 @@ var getTxt = function (rawTxt) {
         e = rawTxt.indexOf('</P>', s);
         strArr[strArr.length] = rawTxt.slice(s, e);
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 62bb49ab4466231311c0418e41093a20386bd24f
     return strArr;
 };
 
