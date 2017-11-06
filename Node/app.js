@@ -46,4 +46,6 @@ app.use(function(err, req, res, next) {
     console.log(err.message);
 });
 
+require('./business_layer/schedule');
+
 module.exports = app;
