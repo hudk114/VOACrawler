@@ -1,14 +1,14 @@
 {
-  "domain": "http://www.51voa.com",
-  "query": [
-    {
-      "type": "standard",
-      "uri": "/VOA_Standard_English/"
-    },
-    {
-      "type": "special",
-      "uri": "/VOA_Special_English/"
-    }
-  ],
-  "mode": 1
+    "domain": "http://www.51voa.com",
+    "query": [
+        {
+            "type": "standard",
+            "uri": "/VOA_Standard_English/"
+        },
+        {
+            "type": "special",
+            "uri": "/VOA_Special_English/"
+        }
+    ],
+    "mode": 1
 }

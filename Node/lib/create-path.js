@@ -3,29 +3,29 @@
  */
 const fs = require('fs');
 const path = require('path');
-const commonFuncs = require('./commonFuncs');
+const commonFuncs = require('./common-funcs');
 
-var createPath = function (name, type, fn, fnErr) {
+const createPath = function createPath(name, type, fn, fnErr) {
     let p = path.resolve(__dirname, '../files');
     if (!fs.existsSync(p)) {
         fs.mkdirSync(p);
     }
 
-    p += `/${ commonFuncs.getDateString() }`;
+    p += `/${commonFuncs.getDateString()}`;
     if (!fs.existsSync(p)) {
         fs.mkdirSync(p);
     }
 
-    p += `/${ type }`;
+    p += `/${type}`;
     if (!fs.existsSync(p)) {
         fs.mkdirSync(p);
     }
 
-    // p += `/${ name }`;
+    // p += `/${name}`;
     // if(!fs.existsSync(p)) {
     //     fs.mkdirSync(p);
     // }
-
+    console.log(`create path: ${p}`);
     fn();
 };
 

@@ -4,12 +4,11 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const fire = require('../business layer/crawlFiles');
+const crawlFiles = require('../business_layer/crawl-files');
 
 router.get('/', function(req, res, next) {
-    // TODO do things here
-    fire();
-    res.send('123');
+    crawlFiles();
+    res.send('success');
 });
 
 module.exports = router;

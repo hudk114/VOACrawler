@@ -2,13 +2,13 @@
  * Created by dekaihu on 2017/8/8.
  */
 
-var getDateString = function () {
+const getDateString = function getDateString() {
     const date = new Date();
-    return `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 };
 
 // name can't have /,\,:,*,?,",<,>,|
-var fixName = function fixName(name) {
+const fixName = function fixName(name) {
     const arr = name.split('').filter(item => {
         if ('/' === item || '\\' === item || ':' === item || '*' === item
             || '?' === item || '"' === item || '<' === item || '>' === item
