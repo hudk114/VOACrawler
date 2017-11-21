@@ -2,9 +2,10 @@
  * Created by dekaihu on 2017/8/5.
  */
 const myFetch = require('../lib/my-fetch');
-const fetchMp3 = require('../lib/fetch-mp3');
-const saveFile = require('../lib/save-file');
+const fetchMp3 = require('./fetch-mp3');
 const config = require('../config.json');
+const { getFullPath } = require('../lib/path-lib');
+const { saveTxt } = require('../lib/file-lib');
 const { log, err } = require('./log-lib');
 
 const getTxt = function getTxt(rawTxt) {
@@ -42,7 +43,10 @@ module.exports = ({ uri, type, name }) => {
         }, e => {
             err('Server', `get mp3 file error: ${e.message}`);
         });
-        saveFile({ txtArr, type, name });
+        saveTxt({
+            txtArr: getTxt(d),
+            file: getFullPath({ type, name, fileType: 'txt' }),
+        });
     }, e => {
         err('Server', `get mp3 path error: ${e.message}`);
     });
