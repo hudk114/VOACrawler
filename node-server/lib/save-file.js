@@ -3,13 +3,13 @@
  */
 const path = require('path');
 const fs = require('fs');
-const commonFuncs = require('./common-funcs');
+const { getFullPath } = require('./path-lib');
+const log = require('./log-lib');
 
-module.exports = (txtArr, type, name) => {
-    const p = path.resolve(__dirname, `../files/${commonFuncs.getDateString()}/${type}`);
-    const file = `${p}/${commonFuncs.fixName(name)}.txt`;
+module.exports = ({ txtArr, type, name }) => {
+    const file = getFullPath({ type, name, fileType: 'txt' });
     
-    console.log(`start saving file: ${name}`);
+    log('Server', `start saving file: ${name}`);
     txtArr.forEach(item => {
         fs.appendFileSync(file, item + '\n');
     });

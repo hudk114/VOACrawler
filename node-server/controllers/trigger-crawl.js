@@ -3,10 +3,12 @@
  */
 const express = require('express');
 const router = express.Router();
-const path = require('path');
 const crawlFiles = require('../business_layer/crawl-files');
+const log = require('../lib/log-lib');
 
 router.get('/', function(req, res, next) {
+    // TODO req from
+    log('Browser', 'get trigger request');
     crawlFiles();
     res.send('success');
 });

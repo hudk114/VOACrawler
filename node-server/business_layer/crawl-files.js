@@ -5,12 +5,12 @@
 const myFetch = require('../lib/my-fetch.js');
 const config = require('../config.json');
 const getMp3AndStore = require('./get-mp3-and-store');
-const commonFuncs = require('../lib/common-funcs');
-const createPath = require('../lib/create-path');
+const { getDateString, getFullTimeString } = require('../lib/date-lib');
+const { createRootPath } = require('../lib/path-lib');
 
 const getListFromHtml = function getListFromHtml(rawTxt, type) {
     const arr = [];
-    const dString = commonFuncs.getDateString();
+    const dString = getDateString();
     const str = `<a href="(.{0,100}\\.html)" target="_blank">(.{0,100})\\(${dString}\\)</a>`;
     const pattern = new RegExp(str, 'g');
     
@@ -28,13 +28,13 @@ const getListFromHtml = function getListFromHtml(rawTxt, type) {
 };
 
 const crawlFiles = function () {
-    console.log('getting files...');
+    console.log(`${getFullTimeString()} [Server] getting files...`);
     
     config.query.forEach(item => {
         myFetch(config.domain + item.uri, d => {
             const arr = getListFromHtml(d, item.type);
             arr.forEach(i => {
-                createPath(i.name, item.type, () => {
+                createRootPath(i.name, item.type, () => {
                     getMp3AndStore(i);
                 });
             });

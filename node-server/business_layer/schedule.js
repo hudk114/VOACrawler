@@ -3,8 +3,8 @@
  */
 const schedule = require('node-schedule');
 const rule = new schedule.RecurrenceRule();
-rule.hour = 18;
-rule.minute = 0;
+rule.hour = 23;
+rule.minute = 30;
 
 const crawlFiles = require('../business_layer/crawl-files');
 

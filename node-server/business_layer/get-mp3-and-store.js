@@ -32,17 +32,16 @@ const getMp3Uri = function getMp3Uri(rawTxt) {
     return match && match[1];
 };
 
-module.exports = function ({ uri, type, name }) {
+module.exports = ({ uri, type, name }) => {
     myFetch(config.domain + uri, d => {
         const mp3Uri = getMp3Uri(d);
         const txtArr = getTxt(d);
-        // TODO store txt; get mp3 file, store
         fetchMp3(mp3Uri, type, name, d => {
             console.log(d);
         }, e => {
             console.error(`get mp3 file error: ${e.message}`);
         });
-        saveFile(txtArr, type, name);
+        saveFile({ txtArr, type, name });
     }, e => {
         console.error(`get mp3 path error: ${e.message}`);
     });
