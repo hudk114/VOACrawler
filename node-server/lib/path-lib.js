@@ -4,31 +4,33 @@
 const fs = require('fs');
 const path = require('path');
 const { getDayString, getMonthString } = require('./date-lib');
+const { log, err } = require('./log-lib');
 
 /** type/month/{date}name
  *  example: special/2017-11/07'Paradise Papers' Show Secret Wealth of Officials, Famous People.mp3
  */
 const createRootPath = function createRootPath(name, type, fn, fnErr) {
     let p = path.resolve(__dirname, '../files');
-    
+
     try {
         if (!fs.existsSync(p)) {
             fs.mkdirSync(p);
         }
-    
+
         p += `/${type}`;
         if (!fs.existsSync(p)) {
             fs.mkdirSync(p);
         }
-    
+
         p += `/${getMonthString()}`;
         if (!fs.existsSync(p)) {
             fs.mkdirSync(p);
         }
-    
-        console.log(`create path: ${p}`);
+
+        log('Server', `create path: ${p}`);
         fn(p);
     } catch (e) {
+        err('Server', `failed at create path ${p}, err is: ${err.message}`);
         fnErr(e);
     }
 };
@@ -47,7 +49,7 @@ const fixName = function fixName(name) {
         }
         return true;
     });
-    
+
     return `${getDayString()}${arr.join('')}`;
 };
 

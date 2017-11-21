@@ -5,6 +5,7 @@
 const myFetch = require('../lib/my-fetch.js');
 const config = require('../config.json');
 const getMp3AndStore = require('./get-mp3-and-store');
+const { log, err } = require('../lib/log-lib');
 const { getDateString, getFullTimeString } = require('../lib/date-lib');
 const { createRootPath } = require('../lib/path-lib');
 
@@ -13,7 +14,7 @@ const getListFromHtml = function getListFromHtml(rawTxt, type) {
     const dString = getDateString();
     const str = `<a href="(.{0,100}\\.html)" target="_blank">(.{0,100})\\(${dString}\\)</a>`;
     const pattern = new RegExp(str, 'g');
-    
+
     let match = pattern.exec(rawTxt);
     while (match) {
         arr.push({
@@ -23,13 +24,13 @@ const getListFromHtml = function getListFromHtml(rawTxt, type) {
         });
         match = pattern.exec(rawTxt);
     }
-    
+
     return arr;
 };
 
 const crawlFiles = function () {
-    console.log(`${getFullTimeString()} [Server] getting files...`);
-    
+    log('Server', 'start getting files');
+
     config.query.forEach(item => {
         myFetch(config.domain + item.uri, d => {
             const arr = getListFromHtml(d, item.type);
@@ -39,7 +40,7 @@ const crawlFiles = function () {
                 });
             });
         }, e => {
-            console.error(`get file name error: ${e.message}`);
+            err('Server', `getting file name error: ${e.message}`);
         });
     });
 };
