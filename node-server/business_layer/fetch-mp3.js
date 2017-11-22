@@ -18,7 +18,7 @@ const myFetchMp3 = function myFetchMp3(uri, type, name, fn, fnErr) {
 
         saveMp3({
             uri,
-            file: getFullPath({ type, name, fileType: 'mp3' },
+            file: getFullPath({ type, name, fileType: 'mp3' }),
         });
 
         fn && fn(res);

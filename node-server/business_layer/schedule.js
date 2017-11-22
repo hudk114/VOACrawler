@@ -3,7 +3,7 @@
  */
 const schedule = require('node-schedule');
 const rule = new schedule.RecurrenceRule();
-const { log } = require('./log-lib');
+const { log } = require('../lib/log-lib');
 const crawlFiles = require('../business_layer/crawl-files');
 
 rule.hour = 23;

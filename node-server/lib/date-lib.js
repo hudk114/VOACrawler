@@ -14,12 +14,12 @@ const getDateString = function getDateString() {
     const date = new Date();
     return `${date.getFullYear()}-${toDoubleDigit(date.getMonth() + 1)}-${toDoubleDigit(date.getDate())}`;
 };
-const getMonthString = function getMonthString() {
-    const date = new Date();
+const getMonthString = function getMonthString(d) {
+    const date = d ? new Date(d) : new Date();
     return `${date.getFullYear()}-${toDoubleDigit(date.getMonth() + 1)}`;
 };
-const getDayString = function getDayString() {
-    const date = new Date();
+const getDayString = function getDayString(d) {
+    const date = d ? new Date(d) : new Date();
     return `${toDoubleDigit(date.getDate())}`;
 };
 

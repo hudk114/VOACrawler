@@ -25,9 +25,9 @@ const createRootPath = function createRootPath(name, type, fn, fnErr) {
         p += `/${getMonthString()}`;
         if (!fs.existsSync(p)) {
             fs.mkdirSync(p);
+            log('Server', `create path: ${p}`);
         }
 
-        log('Server', `create path: ${p}`);
         fn(p);
     } catch (e) {
         err('Server', `failed at create path ${p}, err is: ${err.message}`);
@@ -35,8 +35,8 @@ const createRootPath = function createRootPath(name, type, fn, fnErr) {
     }
 };
 
-const getRootPath = function getRootPath(type) {
-    return path.resolve(__dirname, `../files/${type}/${getMonthString()}`);
+const getRootPath = function getRootPath(type, date) {
+    return path.resolve(__dirname, `../files/${type}/${getMonthString(date)}`);
 };
 
 // name can't have /,\,:,*,?,",<,>,|

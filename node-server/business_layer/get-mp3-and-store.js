@@ -6,7 +6,7 @@ const fetchMp3 = require('./fetch-mp3');
 const config = require('../config.json');
 const { getFullPath } = require('../lib/path-lib');
 const { saveTxt } = require('../lib/file-lib');
-const { log, err } = require('./log-lib');
+const { log, err } = require('../lib/log-lib');
 
 const getTxt = function getTxt(rawTxt) {
     // too large for a string
@@ -37,7 +37,6 @@ const getMp3Uri = function getMp3Uri(rawTxt) {
 module.exports = ({ uri, type, name }) => {
     myFetch(config.domain + uri, d => {
         const mp3Uri = getMp3Uri(d);
-        const txtArr = getTxt(d);
         fetchMp3(mp3Uri, type, name, d => {
             // console.log(d);
         }, e => {

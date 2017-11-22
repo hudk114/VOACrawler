@@ -9,6 +9,7 @@ const lessMiddleware = require('less-middleware');
 const index = require('./controllers/index');
 const triggerCrawl = require('./controllers/trigger-crawl');
 const jsFile = require('./controllers/js-file');
+const clearCrawl = require('./controllers/clear-crawl');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/script', jsFile);
 app.use('/', index);
 app.use('/trigger-crawl', triggerCrawl);
+app.use('/clear-crawl', clearCrawl);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
