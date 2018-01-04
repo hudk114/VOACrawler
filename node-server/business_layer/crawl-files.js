@@ -11,7 +11,7 @@ const { createRootPath } = require('../lib/path-lib');
 
 const getListFromHtml = function getListFromHtml(rawTxt, type) {
     const arr = [];
-    const dString = getDateString();
+    const dString = getDateString(); 
     const str = `<a href="(.{0,100}\\.html)" target="_blank">(.{0,100})\\(${dString}\\)</a>`;
     const pattern = new RegExp(str, 'g');
 
@@ -20,7 +20,7 @@ const getListFromHtml = function getListFromHtml(rawTxt, type) {
         arr.push({
             uri: match[1] && match[1].trim(),
             name: match[2] && match[2].trim(),
-            type: type,
+            type,
         });
         match = pattern.exec(rawTxt);
     }

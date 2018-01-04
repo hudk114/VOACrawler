@@ -60,4 +60,8 @@ typings/
 # webstorm
 .idea/
 
+# vscode
+.vscode/
+
 files/
+.DS_Store

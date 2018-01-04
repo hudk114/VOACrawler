@@ -3,7 +3,8 @@
  */
 
 const toDoubleDigit = function toDoubleDigit(val) {
-    return val < 10 ? `0${val.toString()}` : val.toString();
+    return val.toString();
+    // return val < 10 ? `0${val.toString()}` : val.toString();
 };
 
 const getFullTimeString = function getFullTimeString() {

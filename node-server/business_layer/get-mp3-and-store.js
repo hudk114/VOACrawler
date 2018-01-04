@@ -27,7 +27,7 @@ const getTxt = function getTxt(rawTxt) {
 };
 
 const getMp3Uri = function getMp3Uri(rawTxt) {
-    const str = '<a id="mp3" href="(.*\\.mp3)" title="鼠标右键点击下载">';
+    const str = '<a id="mp3" href="(.*\\.mp3)">';
     const pattern = new RegExp(str, 'g');
     const match = pattern.exec(rawTxt);
 
