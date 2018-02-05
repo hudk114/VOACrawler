@@ -6,11 +6,11 @@ const router = express.Router();
 const crawlFiles = require('../business_layer/crawl-files');
 const { log } = require('../lib/log-lib');
 
-router.get('/', function(req, res, next) {
-    // TODO req from
-    log('Browser', 'get trigger request');
-    crawlFiles();
-    res.send('success');
+router.get('/', (req, res, next) => {
+  // TODO req from
+  log('Browser', 'get trigger request');
+  crawlFiles();
+  res.send('success');
 });
 
 module.exports = router;

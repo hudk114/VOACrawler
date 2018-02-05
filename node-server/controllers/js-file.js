@@ -6,9 +6,9 @@ const router = express.Router();
 const path = require('path');
 
 /* GET js files. */
-router.get('/*', function(req, res, next) {
-    const p = path.join(__dirname, `../public/javascripts/${req.params[0]}`);
-    res.sendFile(p);
+router.get('/*', (req, res, next) => {
+  const p = path.join(__dirname, `../public/javascripts/${req.params[0]}`);
+  res.sendFile(p);
 });
 
 module.exports = router;

@@ -10,55 +10,63 @@ const { log, err } = require('./log-lib');
  *  example: special/2017-11/07'Paradise Papers' Show Secret Wealth of Officials, Famous People.mp3
  */
 const createRootPath = function createRootPath(name, type, fn, fnErr) {
-    let p = path.resolve(__dirname, '../files');
+  let p = path.resolve(__dirname, '../files');
 
-    try {
-        if (!fs.existsSync(p)) {
-            fs.mkdirSync(p);
-        }
-
-        p += `/${type}`;
-        if (!fs.existsSync(p)) {
-            fs.mkdirSync(p);
-        }
-
-        p += `/${getMonthString()}`;
-        if (!fs.existsSync(p)) {
-            fs.mkdirSync(p);
-            log('Server', `create path: ${p}`);
-        }
-
-        fn(p);
-    } catch (e) {
-        err('Server', `failed at create path ${p}, err is: ${err.message}`);
-        fnErr(e);
+  try {
+    if (!fs.existsSync(p)) {
+      fs.mkdirSync(p);
     }
+
+    p += `/${type}`;
+    if (!fs.existsSync(p)) {
+      fs.mkdirSync(p);
+    }
+
+    p += `/${getMonthString()}`;
+    if (!fs.existsSync(p)) {
+      fs.mkdirSync(p);
+      log('Server', `create path: ${p}`);
+    }
+
+    fn(p);
+  } catch (e) {
+    err('Server', `failed at create path ${p}, err is: ${err.message}`);
+    fnErr(e);
+  }
 };
 
 const getRootPath = function getRootPath(type, date) {
-    return path.resolve(__dirname, `../files/${type}/${getMonthString(date)}`);
+  return path.resolve(__dirname, `../files/${type}/${getMonthString(date)}`);
 };
 
 // name can't have /,\,:,*,?,",<,>,|
 const fixName = function fixName(name) {
-    const arr = name.split('').filter(item => {
-        if ('/' === item || '\\' === item || ':' === item || '*' === item
-            || '?' === item || '"' === item || '<' === item || '>' === item
-            || '|' === item) {
-            return false;
-        }
-        return true;
-    });
+  const arr = name.split('').filter(item => {
+    if (
+      item === '/' ||
+      item === '\\' ||
+      item === ':' ||
+      item === '*' ||
+      item === '?' ||
+      item === '"' ||
+      item === '<' ||
+      item === '>' ||
+      item === '|'
+    ) {
+      return false;
+    }
+    return true;
+  });
 
-    return `${getDayString()}${arr.join('')}`;
+  return `${getDayString()}${arr.join('')}`;
 };
 
 const getFullPath = function getFullPath({ type, name, fileType }) {
-    return `${getRootPath(type)}/${fixName(name)}.${fileType}`;;
+  return `${getRootPath(type)}/${fixName(name)}.${fileType}`;
 };
 
 module.exports = {
-    createRootPath,
-    getRootPath,
-    getFullPath,
+  createRootPath,
+  getRootPath,
+  getFullPath
 };

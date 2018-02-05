@@ -10,8 +10,8 @@ rule.hour = 23;
 rule.minute = 30;
 
 const projectTask = function projectTask() {
-    log('Server', 'schedule start');
-    crawlFiles();
+  log('Server', 'schedule start');
+  crawlFiles();
 };
 
 const project = schedule.scheduleJob(rule, projectTask);
